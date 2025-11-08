@@ -43,22 +43,16 @@
             line-height: 28px;
             text-align: center;
             border-radius: 50%;
-            background-color: #4e73df;
-            color: white;
+            background-color: #f0f0f0; /* 默认银白色 */
+            color: #333; /* 深色文字 */
             font-weight: bold;
             margin-right: 8px;
+            border: 1px solid #ddd;
         }
-        .ranking-1 {
-            background-color: #ffd700;
-        }
-        .ranking-2 {
-            background-color: #c0c0c0;
-        }
-        .ranking-3 {
-            background-color: #cd7f32;
-        }
-        .ranking-provincial {
-            background-color: #a0a0a0;
+        .ranking-1, .ranking-2, .ranking-3 {
+            background-color: #ffd700; /* 前3名都是金色 */
+            color: white;
+            border: none;
         }
         .stats-card {
             text-align: center;
@@ -124,7 +118,7 @@
     <div class="container">
         <!-- 励志语区域 -->
         <div class="motivation-section text-center">
-            <h3 class="mb-3">💪 算法竞赛之路，坚持就是胜利！</h3>
+            <h3 class="mb-3"> 赤子之心岂求在夜，十年饮冰难凉热血！</h3>
             <p class="mb-0">"每一次刷题都是积累，每一场比赛都是成长。不要害怕暂时的落后，重要的是持续进步！"</p>
         </div>
 
@@ -273,7 +267,7 @@
         </div>
 
         <footer class="text-center">
-            <p>TUST-ACM算法实验室 &copy; 2025 | 积分规则说明：每次线下赛第一名7分，第二名6分，依次类推，补题加1分</p>
+            <p>TUST-ACM算法实验室 &copy; 2025 | 积分规则说明：每次线下赛第一名7分，第二名6分，依次类推，补题加1分，补题加分不随补题量增加，大家要自律哦！</p>
         </footer>
     </div>
 
@@ -310,7 +304,6 @@
             if (item.totalRank === 1) rankClass = 'ranking-1';
             else if (item.totalRank === 2) rankClass = 'ranking-2';
             else if (item.totalRank === 3) rankClass = 'ranking-3';
-            else if (item.totalRank >= 4 && item.totalRank <= 12) rankClass = 'ranking-provincial';
             
             row.innerHTML = `
                 <td><span class="ranking-badge ${rankClass}">${item.totalRank}</span></td>
