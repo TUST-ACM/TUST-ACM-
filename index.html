@@ -43,13 +43,22 @@
             line-height: 28px;
             text-align: center;
             border-radius: 50%;
-            background-color: #a0a0a0; /* 默认铁色 */
+            background-color: #4e73df;
             color: white;
             font-weight: bold;
             margin-right: 8px;
         }
-        .ranking-1, .ranking-2, .ranking-3 {
-            background-color: #ffd700; /* 前3名都是金色 */
+        .ranking-1 {
+            background-color: #ffd700;
+        }
+        .ranking-2 {
+            background-color: #c0c0c0;
+        }
+        .ranking-3 {
+            background-color: #cd7f32;
+        }
+        .ranking-provincial {
+            background-color: #a0a0a0;
         }
         .stats-card {
             text-align: center;
@@ -75,6 +84,26 @@
             border-radius: 10px;
             margin-top: 30px;
         }
+        .motivation-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .website-card {
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        .website-card:hover {
+            transform: translateY(-5px);
+        }
+        .website-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #4e73df;
+        }
         footer {
             margin-top: 40px;
             padding: 20px 0;
@@ -93,6 +122,12 @@
     </div>
 
     <div class="container">
+        <!-- 励志语区域 -->
+        <div class="motivation-section text-center">
+            <h3 class="mb-3">💪 算法竞赛之路，坚持就是胜利！</h3>
+            <p class="mb-0">"每一次刷题都是积累，每一场比赛都是成长。不要害怕暂时的落后，重要的是持续进步！"</p>
+        </div>
+
         <!-- 统计卡片 -->
         <div class="row mb-4">
             <div class="col-md-3">
@@ -160,6 +195,67 @@
             </div>
         </div>
 
+        <!-- 刷题网站推荐 -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">📚 推荐刷题网站</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card website-card h-100">
+                            <div class="card-body text-center">
+                                <div class="website-icon">🏆</div>
+                                <h5>Codeforces</h5>
+                                <p class="text-muted">全球知名竞赛平台，题目质量高</p>
+                                <a href="https://codeforces.com/" class="btn btn-primary" target="_blank">访问网站</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card website-card h-100">
+                            <div class="card-body text-center">
+                                <div class="website-icon">🐮</div>
+                                <h5>洛谷</h5>
+                                <p class="text-muted">国内知名OJ，适合各阶段选手</p>
+                                <a href="https://www.luogu.com.cn/" class="btn btn-success" target="_blank">访问网站</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card website-card h-100">
+                            <div class="card-body text-center">
+                                <div class="website-icon">🇯🇵</div>
+                                <h5>AtCoder</h5>
+                                <p class="text-muted">日本竞赛平台，思维题质量高</p>
+                                <a href="https://atcoder.jp/" class="btn btn-warning" target="_blank">访问网站</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card website-card h-100">
+                            <div class="card-body text-center">
+                                <div class="website-icon">⚔️</div>
+                                <h5>Virtual Judge</h5>
+                                <p class="text-muted">多平台题目聚合，适合组队训练</p>
+                                <a href="https://vjudge.net/" class="btn btn-info" target="_blank">访问网站</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card website-card h-100">
+                            <div class="card-body text-center">
+                                <div class="website-icon">🐂</div>
+                                <h5>牛客网</h5>
+                                <p class="text-muted">国内竞赛平台，适合面试准备</p>
+                                <a href="https://ac.nowcoder.com/" class="btn btn-danger" target="_blank">访问网站</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- 功能扩展区域 -->
         <div class="feature-section">
             <h4 class="mb-3">功能扩展区域</h4>
@@ -177,7 +273,7 @@
         </div>
 
         <footer class="text-center">
-            <p>TUST-ACM算法实验室 &copy; 2025 | 积分规则说明：每次线下赛第一名7分，第二名6分，依次类推，补题加1分，补题加分不随补题量增加，大家要自律哦</p>
+            <p>TUST-ACM算法实验室 &copy; 2025 | 积分规则说明：每次线下赛第一名7分，第二名6分，依次类推，补题加1分</p>
         </footer>
     </div>
 
@@ -214,6 +310,7 @@
             if (item.totalRank === 1) rankClass = 'ranking-1';
             else if (item.totalRank === 2) rankClass = 'ranking-2';
             else if (item.totalRank === 3) rankClass = 'ranking-3';
+            else if (item.totalRank >= 4 && item.totalRank <= 12) rankClass = 'ranking-provincial';
             
             row.innerHTML = `
                 <td><span class="ranking-badge ${rankClass}">${item.totalRank}</span></td>
