@@ -105,6 +105,14 @@
             color: #6c757d;
             font-size: 0.9rem;
         }
+        .contest-type-badge {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: #333;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -185,6 +193,34 @@
                     <div class="card-body">
                         <canvas id="scoreChart" height="250"></canvas>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- XCPC周赛情况表格 -->
+        <div class="card mt-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>XCPC周赛情况：第一场 (2025-11-2)</span>
+                <div>
+                    <span class="contest-type-badge me-2">Codeforces Gym</span>
+                    <a href="https://codeforces.com/gym/104369/standings" class="btn btn-sm btn-outline-primary" target="_blank">查看比赛详情</a>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th width="20%">排名</th>
+                                <th width="30%">比赛名称</th>
+                                <th width="25%">比赛日期</th>
+                                <th width="25%">参赛人数</th>
+                            </tr>
+                        </thead>
+                        <tbody id="xcpc-table">
+                            <!-- 数据将通过JavaScript动态生成 -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -294,7 +330,12 @@
             { totalRank: 12, name: "曹银娟", contestRank: "18 → +1", makeUp: "", totalScore: 1 }
         ];
 
-        // 填充表格数据
+        // XCPC周赛数据
+        const xcpcData = [
+            { rank: "491/1630", contestName: "XCPC周赛第一场", date: "2025-11-2", participants: "1630" }
+        ];
+
+        // 填充排名表格数据
         const tableBody = document.getElementById('ranking-table');
         rankingData.forEach(item => {
             const row = document.createElement('tr');
@@ -313,6 +354,20 @@
                 <td><strong>${item.totalScore}</strong></td>
             `;
             tableBody.appendChild(row);
+        });
+
+        // 填充XCPC周赛表格数据
+        const xcpcTableBody = document.getElementById('xcpc-table');
+        xcpcData.forEach(item => {
+            const row = document.createElement('tr');
+            
+            row.innerHTML = `
+                <td>${item.rank}</td>
+                <td>${item.contestName}</td>
+                <td>${item.date}</td>
+                <td>${item.participants}</td>
+            `;
+            xcpcTableBody.appendChild(row);
         });
 
         // 创建积分分布图表
