@@ -331,10 +331,11 @@
         ];
 
         // XCPC周赛数据
-        const xcpcData = [
-            { rank: "491/1630", contestName: "2023 广东 CPC", date: "2025-11-2", participants: "1630" },
-            { rank: "305/1238", contestName: "2022 河南 CPC", date: "2025-11-9", participants: "1238" }
-        ];
+const xcpcData = [
+    { rank: "491/1630", contestName: "XCPC周赛第一场", date: "2025-11-2", participants: "1630", link: "https://codeforces.com/gym/104369/standings" },
+    { rank: "305/1238", contestName: "2022 河南 CPC", date: "2025-11-9", participants: "1238", link: "https://codeforces.com/gym/103941/standings" }
+];
+
 
         // 填充排名表格数据
         const tableBody = document.getElementById('ranking-table');
@@ -360,16 +361,17 @@
         // 填充XCPC周赛表格数据
         const xcpcTableBody = document.getElementById('xcpc-table');
         xcpcData.forEach(item => {
-            const row = document.createElement('tr');
-            
-            row.innerHTML = `
-                <td>${item.rank}</td>
-                <td>${item.contestName}</td>
-                <td>${item.date}</td>
-                <td>${item.participants}</td>
-            `;
-            xcpcTableBody.appendChild(row);
-        });
+    const row = `
+        <tr>
+            <td>${item.rank}</td>
+            <td><a href="${item.link}" target="_blank" style="color:#007bff; text-decoration:none;">${item.contestName}</a></td>
+            <td>${item.date}</td>
+            <td>${item.participants}</td>
+        </tr>
+    `;
+    document.getElementById("xcpcTableBody").innerHTML += row;
+});
+
 
         // 创建积分分布图表
 const scoreCtx = document.getElementById('scoreChart').getContext('2d');
