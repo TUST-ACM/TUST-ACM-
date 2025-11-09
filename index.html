@@ -49,8 +49,18 @@
             margin-right: 8px;
             border: 1px solid #ddd;
         }
-        .ranking-1, .ranking-2, .ranking-3 {
-            background-color: #ffd700; /* 前3名都是金色 */
+        .ranking-1 {
+            background-color: #ffd700; /* 第一名金色 */
+            color: white;
+            border: none;
+        }
+        .ranking-2 {
+            background-color: #c0c0c0; /* 第二名银色 */
+            color: white;
+            border: none;
+        }
+        .ranking-3 {
+            background-color: #cd7f32; /* 第三名铜色 */
             color: white;
             border: none;
         }
@@ -112,6 +122,13 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
+        }
+        .makeup-yes {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .makeup-no {
+            color: #6c757d;
         }
     </style>
 </head>
@@ -202,8 +219,8 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>XCPC周赛情况：</span>
                 <div>
-                    <span class="contest-type-badge me-2">Codeforces Gym</span>
-                    <a href="https://codeforces.com/gym/104369/standings" class="btn btn-sm btn-outline-primary" target="_blank">查看比赛详情</a>
+                    <span class="contest-type-badge me-2">XCPC VP</span>
+                    <a href="https://www.cnblogs.com/WIDA/p/18122995#5312410" class="btn btn-sm btn-outline-primary" target="_blank">查看比赛列表</a>
                 </div>
             </div>
             <div class="card-body p-0">
@@ -331,11 +348,10 @@
         ];
 
         // XCPC周赛数据
-const xcpcData = [
-    { rank: "491/1630", contestName: "XCPC周赛第一场", date: "2025-11-2", participants: "1630", link: "https://codeforces.com/gym/104369/standings" },
-    { rank: "305/1238", contestName: "2022 河南 CPC", date: "2025-11-9", participants: "1238", link: "https://codeforces.com/gym/103941/standings" }
-];
-
+        const xcpcData = [
+            { rank: "491/1630", contestName: "2023 广东 CPC", date: "2025-11-2", participants: "1630", link: "https://codeforces.com/gym/104369/standings" },
+            { rank: "305/1238", contestName: "2022 河南 CPC", date: "2025-11-9", participants: "1238", link: "https://codeforces.com/gym/103941/standings" }
+        ];
 
         // 填充排名表格数据
         const tableBody = document.getElementById('ranking-table');
@@ -348,11 +364,15 @@ const xcpcData = [
             else if (item.totalRank === 2) rankClass = 'ranking-2';
             else if (item.totalRank === 3) rankClass = 'ranking-3';
             
+            // 处理补题列样式
+            const makeUpClass = item.makeUp ? 'makeup-yes' : 'makeup-no';
+            const makeUpText = item.makeUp || '+0';
+            
             row.innerHTML = `
                 <td><span class="ranking-badge ${rankClass}">${item.totalRank}</span></td>
                 <td>${item.name}</td>
                 <td>${item.contestRank}</td>
-                <td>${item.makeUp}</td>
+                <td class="${makeUpClass}">${makeUpText}</td>
                 <td><strong>${item.totalScore}</strong></td>
             `;
             tableBody.appendChild(row);
@@ -361,50 +381,55 @@ const xcpcData = [
         // 填充XCPC周赛表格数据
         const xcpcTableBody = document.getElementById('xcpc-table');
         xcpcData.forEach(item => {
-    const row = `
-        <tr>
-            <td>${item.rank}</td>
-            <td><a href="${item.link}" target="_blank" style="color:#007bff; text-decoration:none;">${item.contestName}</a></td>
-            <td>${item.date}</td>
-            <td>${item.participants}</td>
-        </tr>
-    `;
-    document.getElementById("xcpcTableBody").innerHTML += row;
-});
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.rank}</td>
+                <td><a href="${item.link}" target="_blank" style="color:#007bff; text-decoration:none;">${item.contestName}</a></td>
+                <td>${item.date}</td>
+                <td>${item.participants}</td>
+            `;
+            xcpcTableBody.appendChild(row);
+        });
 
+        // 计算积分分布
+        const scoreDistribution = {};
+        rankingData.forEach(item => {
+            const score = item.totalScore;
+            scoreDistribution[score] = (scoreDistribution[score] || 0) + 1;
+        });
 
         // 创建积分分布图表
-const scoreCtx = document.getElementById('scoreChart').getContext('2d');
-const scoreChart = new Chart(scoreCtx, {
-    type: 'pie',
-    data: {
-        labels: ['8分', '7分', '6分', '5分', '4分', '2分', '1分'],
-        datasets: [{
-            data: [1, 1, 1, 1, 1, 6, 7],
-            backgroundColor: [
-                '#FFD700', '#C0C0C0', '#CD7F32',
-                '#4e73df', '#1cc88a', '#36b9cc', '#ff6384'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'bottom'
+        const scoreCtx = document.getElementById('scoreChart').getContext('2d');
+        const scoreChart = new Chart(scoreCtx, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(scoreDistribution).map(score => `${score}分`),
+                datasets: [{
+                    data: Object.values(scoreDistribution),
+                    backgroundColor: [
+                        '#FFD700', '#C0C0C0', '#CD7F32',
+                        '#4e73df', '#1cc88a', '#36b9cc', '#ff6384',
+                        '#ff9f40', '#9966ff', '#4bc0c0'
+                    ],
+                    borderWidth: 1
+                }]
             },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return `${context.label}: ${context.raw}人`;
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}人`;
+                            }
+                        }
                     }
                 }
             }
-        }
-    }
-});
-
+        });
 
         // 添加新功能按钮事件
         document.getElementById('add-feature-btn').addEventListener('click', function() {
