@@ -157,13 +157,13 @@
             </div>
             <div class="col-md-3">
                 <div class="card stats-card">
-                    <div class="stats-value">1</div>
+                    <div class="stats-value">2</div>
                     <div class="stats-label">已举办场次</div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card stats-card">
-                    <div class="stats-value">8</div>
+                    <div class="stats-value">14</div>
                     <div class="stats-label">最高积分</div>
                 </div>
             </div>
@@ -175,7 +175,7 @@
             </div>
         </div>
 
-        <!-- 排名表格和图表 -->
+        <!-- 第一场周赛排名表格和图表 -->
         <div class="row">
             <div class="col-lg-8">
                 <div class="card">
@@ -195,7 +195,7 @@
                                         <th width="20%">总积分</th>
                                     </tr>
                                 </thead>
-                                <tbody id="ranking-table">
+                                <tbody id="ranking-table-1">
                                     <!-- 数据将通过JavaScript动态生成 -->
                                 </tbody>
                             </table>
@@ -206,10 +206,73 @@
             
             <div class="col-lg-4">
                 <div class="card">
-                    <div class="card-header">积分分布</div>
+                    <div class="card-header">第一场积分分布</div>
                     <div class="card-body">
-                        <canvas id="scoreChart" height="250"></canvas>
+                        <canvas id="scoreChart1" height="250"></canvas>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第二场周赛排名表格和图表 -->
+        <div class="row mt-4">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>第二场周赛排名 (2025-11-9)</span>
+                        <a href="https://ac.nowcoder.com/acm/contest/121300#rank/%22searchUserName%22%3A%22%E5%A4%A9%E6%B4%A5%E7%A7%91%E6%8A%80%22" class="btn btn-sm btn-outline-primary" target="_blank">查看比赛详情</a>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th width="15%">总排名</th>
+                                        <th width="25%">姓名</th>
+                                        <th width="25%">比赛排名</th>
+                                        <th width="15%">补题</th>
+                                        <th width="20%">总积分</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ranking-table-2">
+                                    <!-- 数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">第二场积分分布</div>
+                    <div class="card-body">
+                        <canvas id="scoreChart2" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 总排名表 -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <span>总排名表</span>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th width="15%">总排名</th>
+                                <th width="35%">姓名</th>
+                                <th width="25%">排名</th>
+                                <th width="25%">总积分</th>
+                            </tr>
+                        </thead>
+                        <tbody id="total-ranking-table">
+                            <!-- 数据将通过JavaScript动态生成 -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -325,11 +388,11 @@
     </div>
 
     <script>
-        // 排名数据
-        const rankingData = [
-            { totalRank: 1, name: "李文隽", contestRank: "1 → +7", makeUp: "+1", totalScore: 8 },
-            { totalRank: 2, name: "陈泽瑞", contestRank: "2 → +6", makeUp: "+1", totalScore: 7 },
-            { totalRank: 3, name: "刘小钢", contestRank: "3 → +5", makeUp: "+1", totalScore: 6 },
+        // 第一场周赛排名数据
+        const rankingData1 = [
+            { totalRank: 1, name: "李文隽", contestRank: "1 → +7", makeUp: "", totalScore: 7 },
+            { totalRank: 2, name: "刘小钢", contestRank: "3 → +5", makeUp: "+1", totalScore: 6 },
+            { totalRank: 2, name: "陈泽瑞", contestRank: "2 → +6", makeUp: "", totalScore: 6 },
             { totalRank: 4, name: "张帅斌", contestRank: "4 → +4", makeUp: "+1", totalScore: 5 },
             { totalRank: 5, name: "杨嵘", contestRank: "5 → +3", makeUp: "+1", totalScore: 4 },
             { totalRank: 6, name: "范洛旭", contestRank: "9 → +1", makeUp: "+1", totalScore: 2 },
@@ -338,13 +401,53 @@
             { totalRank: 6, name: "叶丁渲", contestRank: "11 → +1", makeUp: "+1", totalScore: 2 },
             { totalRank: 6, name: "武彦儒", contestRank: "17 → +1", makeUp: "+1", totalScore: 2 },
             { totalRank: 6, name: "方皓", contestRank: "10 → +1", makeUp: "+1", totalScore: 2 },
-            { totalRank: 12, name: "郭梓瞳", contestRank: "7 → +1", makeUp: "+1", totalScore: 2 },
+            { totalRank: 12, name: "郭梓瞳", contestRank: "7 → +1", makeUp: "", totalScore: 1 },
             { totalRank: 12, name: "刘博轩", contestRank: "8 → +1", makeUp: "", totalScore: 1 },
             { totalRank: 12, name: "魏春雨", contestRank: "13 → +1", makeUp: "", totalScore: 1 },
             { totalRank: 12, name: "常静雯", contestRank: "14 → +1", makeUp: "", totalScore: 1 },
             { totalRank: 12, name: "李宜翰", contestRank: "15 → +1", makeUp: "", totalScore: 1 },
             { totalRank: 12, name: "张永嘉", contestRank: "16 → +1", makeUp: "", totalScore: 1 },
             { totalRank: 12, name: "曹银娟", contestRank: "18 → +1", makeUp: "", totalScore: 1 }
+        ];
+
+        // 第二场周赛排名数据
+        const rankingData2 = [
+            { totalRank: 1, name: "李文隽", contestRank: "1 → +7", makeUp: "", totalScore: 7 },
+            { totalRank: 1, name: "刘建鑫", contestRank: "2 → +6", makeUp: "+1", totalScore: 7 },
+            { totalRank: 3, name: "陈泽瑞", contestRank: "3 → +5", makeUp: "", totalScore: 5 },
+            { totalRank: 4, name: "杨嵘", contestRank: "4 → +4", makeUp: "", totalScore: 4 },
+            { totalRank: 4, name: "郭梓瞳", contestRank: "5 → +3", makeUp: "+1", totalScore: 4 },
+            { totalRank: 6, name: "方皓", contestRank: "6 → +2", makeUp: "+1", totalScore: 3 },
+            { totalRank: 7, name: "张帅斌", contestRank: "7 → +1", makeUp: "+1", totalScore: 2 },
+            { totalRank: 7, name: "范洛旭", contestRank: "10 → +1", makeUp: "+1", totalScore: 2 },
+            { totalRank: 7, name: "吕婧蕊", contestRank: "11 → +1", makeUp: "+1", totalScore: 2 },
+            { totalRank: 7, name: "武彦儒", contestRank: "14 → +1", makeUp: "+1", totalScore: 2 },
+            { totalRank: 11, name: "刘小钢", contestRank: "9 → +1", makeUp: "", totalScore: 1 },
+            { totalRank: 11, name: "魏春雨", contestRank: "8 → +1", makeUp: "", totalScore: 1 },
+            { totalRank: 11, name: "常静雯", contestRank: "13 → +1", makeUp: "", totalScore: 1 },
+            { totalRank: 11, name: "李宜翰", contestRank: "12 → +1", makeUp: "", totalScore: 1 }
+        ];
+
+        // 总排名数据
+        const totalRankingData = [
+            { totalRank: 1, name: "李文隽", rank: "", totalScore: 14 },
+            { totalRank: 2, name: "陈泽瑞", rank: "", totalScore: 11 },
+            { totalRank: 3, name: "刘建鑫", rank: "", totalScore: 9 },
+            { totalRank: 4, name: "杨嵘", rank: "", totalScore: 8 },
+            { totalRank: 5, name: "刘小钢", rank: "", totalScore: 7 },
+            { totalRank: 5, name: "张帅斌", rank: "", totalScore: 7 },
+            { totalRank: 6, name: "方皓", rank: "", totalScore: 5 },
+            { totalRank: 6, name: "郭梓瞳", rank: "", totalScore: 5 },
+            { totalRank: 8, name: "范洛旭", rank: "", totalScore: 4 },
+            { totalRank: 8, name: "吕婧蕊", rank: "", totalScore: 4 },
+            { totalRank: 8, name: "武彦儒", rank: "", totalScore: 4 },
+            { totalRank: 12, name: "叶丁渲", rank: "", totalScore: 2 },
+            { totalRank: 12, name: "魏春雨", rank: "", totalScore: 2 },
+            { totalRank: 12, name: "常静雯", rank: "", totalScore: 2 },
+            { totalRank: 12, name: "李宜翰", rank: "", totalScore: 2 },
+            { totalRank: 16, name: "刘博轩", rank: "", totalScore: 1 },
+            { totalRank: 16, name: "张永嘉", rank: "", totalScore: 1 },
+            { totalRank: 16, name: "曹银娟", rank: "", totalScore: 1 }
         ];
 
         // XCPC周赛数据
@@ -354,9 +457,9 @@
             { rank: "201/468", contestName: "2023 湖南 CPC", date: "2025-11-16", participants: "468", link: "https://codeforces.com/gym/104396/standings/page/2" }
         ];
 
-        // 填充排名表格数据
-        const tableBody = document.getElementById('ranking-table');
-        rankingData.forEach(item => {
+        // 填充第一场周赛排名表格数据
+        const tableBody1 = document.getElementById('ranking-table-1');
+        rankingData1.forEach(item => {
             const row = document.createElement('tr');
             
             // 根据排名添加特殊样式
@@ -376,7 +479,52 @@
                 <td class="${makeUpClass}">${makeUpText}</td>
                 <td><strong>${item.totalScore}</strong></td>
             `;
-            tableBody.appendChild(row);
+            tableBody1.appendChild(row);
+        });
+
+        // 填充第二场周赛排名表格数据
+        const tableBody2 = document.getElementById('ranking-table-2');
+        rankingData2.forEach(item => {
+            const row = document.createElement('tr');
+            
+            // 根据排名添加特殊样式
+            let rankClass = '';
+            if (item.totalRank === 1) rankClass = 'ranking-1';
+            else if (item.totalRank === 2) rankClass = 'ranking-2';
+            else if (item.totalRank === 3) rankClass = 'ranking-3';
+            
+            // 处理补题列样式
+            const makeUpClass = item.makeUp ? 'makeup-yes' : 'makeup-no';
+            const makeUpText = item.makeUp || '+0';
+            
+            row.innerHTML = `
+                <td><span class="ranking-badge ${rankClass}">${item.totalRank}</span></td>
+                <td>${item.name}</td>
+                <td>${item.contestRank}</td>
+                <td class="${makeUpClass}">${makeUpText}</td>
+                <td><strong>${item.totalScore}</strong></td>
+            `;
+            tableBody2.appendChild(row);
+        });
+
+        // 填充总排名表格数据
+        const totalTableBody = document.getElementById('total-ranking-table');
+        totalRankingData.forEach(item => {
+            const row = document.createElement('tr');
+            
+            // 根据排名添加特殊样式
+            let rankClass = '';
+            if (item.totalRank === 1) rankClass = 'ranking-1';
+            else if (item.totalRank === 2) rankClass = 'ranking-2';
+            else if (item.totalRank === 3) rankClass = 'ranking-3';
+            
+            row.innerHTML = `
+                <td><span class="ranking-badge ${rankClass}">${item.totalRank}</span></td>
+                <td>${item.name}</td>
+                <td>${item.rank}</td>
+                <td><strong>${item.totalScore}</strong></td>
+            `;
+            totalTableBody.appendChild(row);
         });
 
         // 填充XCPC周赛表格数据
@@ -392,21 +540,61 @@
             xcpcTableBody.appendChild(row);
         });
 
-        // 计算积分分布
-        const scoreDistribution = {};
-        rankingData.forEach(item => {
+        // 计算第一场积分分布
+        const scoreDistribution1 = {};
+        rankingData1.forEach(item => {
             const score = item.totalScore;
-            scoreDistribution[score] = (scoreDistribution[score] || 0) + 1;
+            scoreDistribution1[score] = (scoreDistribution1[score] || 0) + 1;
         });
 
-        // 创建积分分布图表
-        const scoreCtx = document.getElementById('scoreChart').getContext('2d');
-        const scoreChart = new Chart(scoreCtx, {
+        // 创建第一场积分分布图表
+        const scoreCtx1 = document.getElementById('scoreChart1').getContext('2d');
+        const scoreChart1 = new Chart(scoreCtx1, {
             type: 'pie',
             data: {
-                labels: Object.keys(scoreDistribution).map(score => `${score}分`),
+                labels: Object.keys(scoreDistribution1).map(score => `${score}分`),
                 datasets: [{
-                    data: Object.values(scoreDistribution),
+                    data: Object.values(scoreDistribution1),
+                    backgroundColor: [
+                        '#FFD700', '#C0C0C0', '#CD7F32',
+                        '#4e73df', '#1cc88a', '#36b9cc', '#ff6384',
+                        '#ff9f40', '#9966ff', '#4bc0c0'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}人`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 计算第二场积分分布
+        const scoreDistribution2 = {};
+        rankingData2.forEach(item => {
+            const score = item.totalScore;
+            scoreDistribution2[score] = (scoreDistribution2[score] || 0) + 1;
+        });
+
+        // 创建第二场积分分布图表
+        const scoreCtx2 = document.getElementById('scoreChart2').getContext('2d');
+        const scoreChart2 = new Chart(scoreCtx2, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(scoreDistribution2).map(score => `${score}分`),
+                datasets: [{
+                    data: Object.values(scoreDistribution2),
                     backgroundColor: [
                         '#FFD700', '#C0C0C0', '#CD7F32',
                         '#4e73df', '#1cc88a', '#36b9cc', '#ff6384',
