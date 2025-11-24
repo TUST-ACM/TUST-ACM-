@@ -130,6 +130,27 @@
         .makeup-no {
             color: #6c757d;
         }
+        .training-card {
+            transition: transform 0.3s;
+        }
+        .training-card:hover {
+            transform: translateY(-5px);
+        }
+        .training-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px 10px 0 0;
+        }
+        .training-card .card-body {
+            padding: 0;
+        }
+        .training-table {
+            margin-bottom: 0;
+        }
+        .training-table th {
+            background-color: #f8f9fa;
+        }
     </style>
 </head>
 <body>
@@ -171,6 +192,62 @@
                 <div class="card stats-card">
                     <div class="stats-value">14</div>
                     <div class="stats-label">完成补题人数</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 平时训练专题题库 -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">📚 平时训练专题题库</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card training-card h-100">
+                            <div class="training-header">
+                                <h5 class="mb-1">第一章</h5>
+                                <p class="mb-0 small">2025.10.20 - 2025.11.03</p>
+                            </div>
+                            <div class="card-body">
+                                <p class="p-3 mb-0">语言基础，数组基础，字符串基础，函数递归及递推，简单数学，排序，贪心，构造，二分，暴力</p>
+                                <div class="px-3 pb-3">
+                                    <span class="badge bg-primary mb-2">基础入门</span>
+                                    <a href="https://vjudge.net/contest/758792" class="btn btn-sm btn-outline-primary w-100" target="_blank">进入题库</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card training-card h-100">
+                            <div class="training-header">
+                                <h5 class="mb-1">第二部分</h5>
+                                <p class="mb-0 small">2025.11.03 - 2025.12.03</p>
+                            </div>
+                            <div class="card-body">
+                                <p class="p-3 mb-0">双指针，大模拟，排序，二分算法</p>
+                                <div class="px-3 pb-3">
+                                    <span class="badge bg-warning mb-2">难度中等</span>
+                                    <a href="https://vjudge.net/contest/763313" class="btn btn-sm btn-outline-primary w-100" target="_blank">进入题库</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card training-card h-100">
+                            <div class="training-header">
+                                <h5 class="mb-1">第三部分</h5>
+                                <p class="mb-0 small">2025.11.24 - 2025.12.09</p>
+                            </div>
+                            <div class="card-body">
+                                <p class="p-3 mb-0">堆栈队列单调栈，重点学习该类数据结构的算法思想，重点掌握C++中相应的STL用法</p>
+                                <div class="px-3 pb-3">
+                                    <span class="badge bg-success mb-2">大部分入门题</span>
+                                    <a href="https://vjudge.net/contest/769367" class="btn btn-sm btn-outline-primary w-100" target="_blank">进入题库</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
