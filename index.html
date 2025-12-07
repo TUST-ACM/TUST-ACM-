@@ -178,13 +178,13 @@
             </div>
             <div class="col-md-3">
                 <div class="card stats-card">
-                    <div class="stats-value">4</div>
+                    <div class="stats-value">5</div>
                     <div class="stats-label">已举办场次</div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card stats-card">
-                    <div class="stats-value">22</div>
+                    <div class="stats-value">23</div>
                     <div class="stats-label">最高积分</div>
                 </div>
             </div>
@@ -408,6 +408,45 @@
             </div>
         </div>
 
+        <!-- 第五场周赛排名表格和图表 -->
+        <div class="row mt-4">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>第五场周赛排名 (2025-12-07)</span>
+                        <a href="https://ac.nowcoder.com/acm/contest/123788#rank/%22searchUserName%22%3A%22%E5%A4%A9%E6%B4%A5%E7%A7%91%E6%8A%80%22" class="btn btn-sm btn-outline-primary" target="_blank">查看比赛详情</a>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th width="15%">总排名</th>
+                                        <th width="25%">姓名</th>
+                                        <th width="25%">比赛排名</th>
+                                        <th width="15%">补题</th>
+                                        <th width="20%">总积分</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ranking-table-5">
+                                    <!-- 数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">第五场积分分布</div>
+                    <div class="card-body">
+                        <canvas id="scoreChart5" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- 总排名表 -->
         <div class="card mt-4">
             <div class="card-header">
@@ -591,9 +630,9 @@
             { totalRank: 4, name: "吕婧蕊", contestRank: "4 → +4", makeUp: "+1", totalScore: 5 },
             { totalRank: 5, name: "范洛旭", contestRank: "5 → +3", makeUp: "", totalScore: 3 },
             { totalRank: 5, name: "刘博轩", contestRank: "6 → +2", makeUp: "+1", totalScore: 3 },
+            { totalRank: 7, name: "方皓", contestRank: "9 → +1", makeUp: "+1", totalScore: 2 },
             { totalRank: 7, name: "郭梓瞳", contestRank: "10 → +1", makeUp: "+1", totalScore: 2 },
             { totalRank: 7, name: "武彦儒", contestRank: "11 → +1", makeUp: "+1", totalScore: 2 },
-            { totalRank: 7, name: "方皓", contestRank: "9 → +1", makeUp: "+1", totalScore: 2 },
             { totalRank: 10, name: "张永嘉", contestRank: "7 → +1", makeUp: "", totalScore: 1 },
             { totalRank: 10, name: "刘小钢", contestRank: "8 → +1", makeUp: "", totalScore: 1 },
             { totalRank: 10, name: "李宜翰", contestRank: "9 → +1", makeUp: "", totalScore: 1 },
@@ -619,24 +658,40 @@
             { totalRank: 12, name: "魏春雨", contestRank: "14 → +1", makeUp: "", totalScore: 1 }
         ];
 
-        // 总排名数据
+        // 第五场周赛排名数据
+        const rankingData5 = [
+            { totalRank: 1, name: "吕婧蕊", contestRank: "1 → +7", makeUp: "", totalScore: 7 },
+            { totalRank: 2, name: "刘小钢", contestRank: "2 → +6", makeUp: "", totalScore: 6 },
+            { totalRank: 3, name: "刘建鑫", contestRank: "3 → +5", makeUp: "", totalScore: 5 },
+            { totalRank: 4, name: "郭梓瞳", contestRank: "4 → +3", makeUp: "+1", totalScore: 4 },
+            { totalRank: 4, name: "武彦儒", contestRank: "5 → +2", makeUp: "+1", totalScore: 4 },
+            { totalRank: 6, name: "范洛旭", contestRank: "6 → +1", makeUp: "", totalScore: 2 },
+            { totalRank: 6, name: "常静雯", contestRank: "7 → +1", makeUp: "+1", totalScore: 2 },
+            { totalRank: 8, name: "杨嵘", contestRank: "8 → +1", makeUp: "", totalScore: 1 },
+            { totalRank: 8, name: "张帅斌", contestRank: "9 → +1", makeUp: "", totalScore: 1 },
+            { totalRank: 8, name: "李宜翰", contestRank: "10 → +1", makeUp: "", totalScore: 1 },
+            { totalRank: 8, name: "魏春雨", contestRank: "11 → +1", makeUp: "", totalScore: 1 },
+            { totalRank: 8, name: "张永嘉", contestRank: "12 → +1", makeUp: "", totalScore: 1 }
+        ];
+
+        // 总排名数据（根据文档更新）
         const totalRankingData = [
-            { totalRank: 1, name: "杨嵘", rank: "", totalScore: 22 },
-            { totalRank: 2, name: "张帅斌", rank: "", totalScore: 20 },
-            { totalRank: 3, name: "刘建鑫", rank: "", totalScore: 18 },
-            { totalRank: 4, name: "吕婧蕊", rank: "", totalScore: 16 },
-            { totalRank: 5, name: "李文隽", rank: "", totalScore: 14 },
-            { totalRank: 6, name: "方皓", rank: "", totalScore: 13 },
-            { totalRank: 7, name: "陈泽瑞", rank: "", totalScore: 11 },
-            { totalRank: 7, name: "刘小钢", rank: "", totalScore: 11 },
-            { totalRank: 9, name: "郭梓瞳", rank: "", totalScore: 9 },
-            { totalRank: 10, name: "范洛旭", rank: "", totalScore: 8 },
-            { totalRank: 11, name: "刘博轩", rank: "", totalScore: 6 },
-            { totalRank: 12, name: "李宜翰", rank: "", totalScore: 5 },
-            { totalRank: 13, name: "魏春雨", rank: "", totalScore: 4 },
-            { totalRank: 13, name: "常静雯", rank: "", totalScore: 4 },
-            { totalRank: 13, name: "武彦儒", rank: "", totalScore: 4 },
-            { totalRank: 13, name: "张永嘉", rank: "", totalScore: 4 },
+            { totalRank: 1, name: "杨嵘", rank: "", totalScore: 23 },
+            { totalRank: 1, name: "刘建鑫", rank: "", totalScore: 23 },
+            { totalRank: 1, name: "吕婧蕊", rank: "", totalScore: 23 },
+            { totalRank: 4, name: "张帅斌", rank: "", totalScore: 21 },
+            { totalRank: 5, name: "刘小钢", rank: "", totalScore: 17 },
+            { totalRank: 6, name: "李文隽", rank: "", totalScore: 14 },
+            { totalRank: 7, name: "方皓", rank: "", totalScore: 13 },
+            { totalRank: 7, name: "郭梓瞳", rank: "", totalScore: 13 },
+            { totalRank: 9, name: "陈泽瑞", rank: "", totalScore: 11 },
+            { totalRank: 10, name: "范洛旭", rank: "", totalScore: 10 },
+            { totalRank: 11, name: "武彦儒", rank: "", totalScore: 8 },
+            { totalRank: 12, name: "刘博轩", rank: "", totalScore: 6 },
+            { totalRank: 12, name: "李宜翰", rank: "", totalScore: 6 },
+            { totalRank: 12, name: "常静雯", rank: "", totalScore: 6 },
+            { totalRank: 15, name: "魏春雨", rank: "", totalScore: 5 },
+            { totalRank: 15, name: "张永嘉", rank: "", totalScore: 5 },
             { totalRank: 17, name: "叶丁渲", rank: "", totalScore: 2 },
             { totalRank: 18, name: "曹银娟", rank: "", totalScore: 1 }
         ];
@@ -749,6 +804,31 @@
                 <td><strong>${item.totalScore}</strong></td>
             `;
             tableBody4.appendChild(row);
+        });
+
+        // 填充第五场周赛排名表格数据
+        const tableBody5 = document.getElementById('ranking-table-5');
+        rankingData5.forEach(item => {
+            const row = document.createElement('tr');
+            
+            // 根据排名添加特殊样式
+            let rankClass = '';
+            if (item.totalRank === 1) rankClass = 'ranking-1';
+            else if (item.totalRank === 2) rankClass = 'ranking-2';
+            else if (item.totalRank === 3) rankClass = 'ranking-3';
+            
+            // 处理补题列样式
+            const makeUpClass = item.makeUp ? 'makeup-yes' : 'makeup-no';
+            const makeUpText = item.makeUp || '+0';
+            
+            row.innerHTML = `
+                <td><span class="ranking-badge ${rankClass}">${item.totalRank}</span></td>
+                <td>${item.name}</td>
+                <td>${item.contestRank}</td>
+                <td class="${makeUpClass}">${makeUpText}</td>
+                <td><strong>${item.totalScore}</strong></td>
+            `;
+            tableBody5.appendChild(row);
         });
 
         // 填充总排名表格数据
@@ -919,6 +999,46 @@
                 labels: Object.keys(scoreDistribution4).map(score => `${score}分`),
                 datasets: [{
                     data: Object.values(scoreDistribution4),
+                    backgroundColor: [
+                        '#FFD700', '#C0C0C0', '#CD7F32',
+                        '#4e73df', '#1cc88a', '#36b9cc', '#ff6384',
+                        '#ff9f40', '#9966ff', '#4bc0c0'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}人`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 计算第五场积分分布
+        const scoreDistribution5 = {};
+        rankingData5.forEach(item => {
+            const score = item.totalScore;
+            scoreDistribution5[score] = (scoreDistribution5[score] || 0) + 1;
+        });
+
+        // 创建第五场积分分布图表
+        const scoreCtx5 = document.getElementById('scoreChart5').getContext('2d');
+        const scoreChart5 = new Chart(scoreCtx5, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(scoreDistribution5).map(score => `${score}分`),
+                datasets: [{
+                    data: Object.values(scoreDistribution5),
                     backgroundColor: [
                         '#FFD700', '#C0C0C0', '#CD7F32',
                         '#4e73df', '#1cc88a', '#36b9cc', '#ff6384',
